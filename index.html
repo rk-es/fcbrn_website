@@ -18,31 +18,8 @@
 
 <body>
 
-    <nav>
-        <div class="nav-container">
-            <a href="#" class="nav-brand-logo-link" title="Freie Christliche Bildung Rheinhessen-Nahe e.V.">
-                <img src="Logo ohne Text.png" alt="Freie Christliche Bildung Rheinhessen-Nahe e.V." class="nav-full-logo">
-            </a>
-
-                        <input type="checkbox" id="navToggle" class="nav-toggle-input" aria-hidden="true" tabindex="-1">
-            <label class="mobile-menu-btn" id="menuBtn" for="navToggle" role="button" aria-label="Menü öffnen / schließen">
-                <span class="menu-icon icon-open">&#x2630;</span>
-                <span class="menu-icon icon-close">&#x2715;</span>
-            </label>
-
-            <div class="nav-right-group" id="mobileNav">
-                <ul>
-                    <li><a href="#vision" onclick="closeMobileNav()">Vision</a></li>
-                    <li><a href="#wer-wir-sind" onclick="closeMobileNav()">Über uns</a></li>
-                    <li><a href="#konzept" onclick="closeMobileNav()">Konzept</a></li>
-                    <li><a href="#mitmachen" onclick="closeMobileNav()">Mitmachen</a></li>
-                    <li><a href="#spenden" onclick="closeMobileNav()">Spenden</a></li>
-                    <li><a href="#kontakt" onclick="closeMobileNav()">Kontakt</a></li>
-                    <li><a href="#formular" class="nav-cta" onclick="closeMobileNav()">Kind vormerken</a></li>
-                </ul>
-            </div>
-        </div>
-    </nav>
+    <div id="site-nav"></div>
+    <script src="navigation.js"></script>
 
     <header>
         <div class="hero-glass-card">
@@ -526,21 +503,6 @@
             </div>
         </section>
 
-        <!-- Impressum Section -->
-         <section id="impressum-section">
-            <span class="section-tag">08 | Impressum</span>
-            <h2>Impressum</h2>
-            <p>
-                Freie Christliche Bildung Rheinhessen-Nahe e.V.<br>
-                VR 42691 - Vereinsregister des Amtsgerichts Mainz<br>
-                Robert König<br>
-                Am Holzweg 8<br>
-                55599 Wonsheim<br>
-                Deutschland<br>
-                robert.koenig@fcbrn.de<br>
-            </p>
-        </section>
-        
     </div>
 
         <footer id="impressum">
@@ -557,10 +519,10 @@
                 <div class=footer-verse-ref>Psalm 90,17</div>
             </div>
 
-            <div class="footer-tagline">Freie Christliche Bildung Rheinhessen-Nahe e.V. &middot; Evangelische Bekenntnisschule im Aufbau (Alzey – Bad Kreuznach)</div>
+            <div class="footer-tagline"></div>
 
             <div class="footer-copyright">
-                <p>&copy; 2026 Freie Christliche Bildung Rheinhessen-Nahe e.V. &middot; Alle Rechte vorbehalten &middot; <a href="impressum.html">Impressum</a> &middot; <a href="datenschutz.html">Datenschutz</a></p>
+                <p>&copy; 2026 Freie Christliche Bildung Rheinhessen-Nahe e.V. &middot; Alle Rechte vorbehalten &middot; <a href="Impressum.html">Impressum</a> &middot; <a href="datenschutz.html">Datenschutz</a></p>
             </div>
         </div>
     </footer>
@@ -568,21 +530,7 @@
 
     
     <script>
-        // --- 1. Mobile Menu Controller (Zusatz: Menü schließen) ---
-        function closeMobileNav() {
-            var t = document.getElementById("navToggle");
-            if (t) t.checked = false;
-        }
-        window.closeMobileNav = closeMobileNav;
-
-        document.addEventListener("click", function(e) {
-            var t = document.getElementById("navToggle");
-            if (t && t.checked && !e.target.closest(".nav-container")) {
-                closeMobileNav();
-            }
-        });
-
-        // --- 2. Scroll Reveal & Intersection Observer ---
+        // --- Scroll Reveal & Intersection Observer ---
         document.addEventListener("DOMContentLoaded", function() {
             var targets = document.querySelectorAll(
                 "section .section-tag, section h2, section h3, .bible-quote-illuminated, .highlight-box, .form-container, .donation-box, .modern-cta-box, .info-card, .action-card, .contact-card, section > p"
