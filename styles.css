@@ -41,7 +41,7 @@
         }
 
         .vebs-logo {
-            max-height: 65px;
+            max-height: 130px;
             max-width: 100%;
             height: auto;
             display: block;
@@ -115,8 +115,16 @@
             scroll-behavior: smooth;
         }
 
-        html, body {
+        html {
             overflow-x: hidden;
+        }
+
+        /* overflow-x: clip statt hidden, damit body kein Scroll-Container wird und die Navigation (sticky) sichtbar bleibt */
+        body {
+            overflow-x: clip;
+        }
+
+        html, body {
             width: 100%;
             max-width: 100%;
             font-family: var(--font-family-base);
@@ -651,14 +659,22 @@
             box-shadow: 0 0 0 3px rgba(186, 149, 79, 0.2);
         }
 
+        /* Formular-Elemente erben die Seitenschrift (Buttons, Felder, Auswahl) */
+        button, input, select, textarea { font-family: inherit; }
+        .form-group input, .form-group select, .form-group textarea { font-family: var(--font-family-base); }
+        /* Lange Optionstexte dürfen das Formular nicht über den Rand verbreitern */
+        .form-group { min-width: 0; }
+        .form-group input, .form-group select, .form-group textarea { width: 100%; max-width: 100%; min-width: 0; }
+        .form-group select { text-overflow: ellipsis; }
+
         /* Fixed Background Parallax Graphic */
         .fixed-bg-graphic {
             position: fixed;
-            top: 0;
-            left: 0;
-            width: 100vw;
-            height: 100vh;
-            background: url("Hintergrund.png") center center / 100% auto no-repeat;
+            top: -3vh;
+            left: -3vw;
+            width: 106vw;
+            height: 106vh;
+            background: url("Hintergrund.png") center center / cover no-repeat;
             opacity: 0.085;
             pointer-events: none;
             z-index: 0;
@@ -669,7 +685,7 @@
             z-index: 1;
         }
         @media (max-width: 768px) {
-            .fixed-bg-graphic { width: 100vw !important; height: 100vh !important; background-size: 100% auto !important; opacity: 0.08 !important; }
+            .fixed-bg-graphic { background-size: cover !important; opacity: 0.08 !important; }
         }
 
         /* Spenden Card (Modern Bright) */
@@ -1026,7 +1042,7 @@
            Scroll-Reveal & Progressive Motion Animations
            ========================================================================== */
         
-        .reveal { opacity: 1; transform: none; transition: opacity 0.6s ease, transform 0.6s ease; }
+        .reveal { opacity: 0; transform: translateY(28px); transition: opacity 0.7s ease, transform 0.7s ease; }
 
         .reveal.is-visible {
             opacity: 1 !important;
@@ -1099,7 +1115,7 @@
                 box-sizing: border-box !important;
                 min-width: 0 !important;
             }
-            .fixed-bg-graphic { width: 100vw !important; height: 100vh !important; background-size: 100% auto !important; }
+            .fixed-bg-graphic { background-size: cover !important; }
         }
 
         /* Footer */
@@ -1382,6 +1398,14 @@
         }
 
 
+        /* Navigation fixiert: navigation.js setzt <nav> in #site-nav. sticky wirkt nur relativ zum
+           Elternelement, daher muss der Container selbst sticky sein (sonst scrollt die Leiste weg). */
+        #site-nav {
+            position: sticky;
+            top: 0;
+            z-index: 99999;
+        }
+
         /* Menu ohne JavaScript (Checkbox-Technik) */
         .nav-toggle-input { position: absolute; opacity: 0; pointer-events: none; width: 0; height: 0; }
         .mobile-menu-btn .icon-close { display: none; }
@@ -1390,6 +1414,16 @@
         #navToggle:checked ~ .mobile-menu-btn { background: var(--gold-5) !important; color: var(--gold-1) !important; border-color: var(--gold-2) !important; }
         @media (max-width: 992px) {
             #navToggle:checked ~ .nav-right-group { display: flex !important; }
+        }
+
+        /* Geöffnetes Menü darf nie höher als der Bildschirm sein, damit alle Links erreichbar bleiben */
+        @media (max-width: 992px) {
+            nav {
+                max-height: 100vh !important;
+                max-height: 100dvh !important;
+                overflow-y: auto !important;
+                overscroll-behavior: contain;
+            }
         }
 
         /* Karte Einzugsgebiet */
@@ -1404,3 +1438,21 @@
         .lg-in { width: 10px; height: 10px; border-radius: 50%; background: #BA954F; }
         .area-map-note { flex-basis: 100%; font-style: italic; line-height: 1.5; }
     
+
+        /* Karte in Eckdaten-Box */
+        .highlight-box .area-map { margin: 1.5rem 0 0 0; background: #ffffff; border: 1px solid var(--gold-4); border-radius: 12px; box-shadow: none; }
+        .highlight-box .area-map-caption { background: transparent; border-top: 1px solid var(--gold-4); padding: 0.75rem 1rem 0.85rem 1rem; }
+
+        /* Rechtliche Seiten (Impressum, Datenschutz) */
+        .legal-page { max-width: 860px; margin: 0 auto; }
+        .legal-page h4 {
+            color: var(--blau-900);
+            font-size: 1.2rem;
+            margin-top: 1.5rem;
+            margin-bottom: 0.5rem;
+        }
+        .legal-page ul { margin-bottom: 1.15rem; }
+        .legal-page a { color: var(--blau-700); text-decoration: underline; text-decoration-color: var(--gold-1); text-underline-offset: 3px; }
+        .legal-page a:hover { color: var(--gold-1); }
+        .legal-page .legal-back { margin-top: 2.5rem; }
+        .legal-page .legal-back a { font-weight: bold; }
